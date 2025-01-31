@@ -1,25 +1,25 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -O2
+CXXFLAGS = -std=c++17 -Wall -g
 
-INCLUDES = -I/opt/homebrew/include
-LIBS = -L/opt/homebrew/lib -lSimpleAmqpClient -lboost_system
+INCLUDES = -I/opt/homebrew/include -I/usr/local/include
+LIBS = -L/opt/homebrew/lib -L/usr/local/lib -lamqpcpp -lssl -lcrypto -lboost_system -lboost_thread
 
-TARGETS = publisher direct
-SRCS = publisher.cpp direct.cpp
+TARGETS = producer direct
+SRCS = producer.cpp directConsumer.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(TARGETS) clean_obj
 
-publisher: publisher.cpp
-	$(CXX) $(CXXFLAGS) publisher.cpp -o publisher $(LIBS) $(INCLUDES)
+producer: producer.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) producer.cpp -o producer $(LIBS) 
 
-direct: direct.cpp
-	$(CXX) $(CXXFLAGS) direct.cpp -o direct $(LIBS) $(INCLUDES)
+direct: directConsumer.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) directConsumer.cpp -o direct $(LIBS) 
 
-clean:
-	rm -f $(OBJS) $(TARGEST)
-	
 clean_obj:
 	rm -f $(OBJS)
 
-.PHONY: all clean
+clean:
+	rm -f producer direct
+
+.PHONY: all clean clean_obj
