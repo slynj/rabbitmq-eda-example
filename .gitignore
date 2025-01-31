@@ -5,3 +5,4 @@ consumer_dir
 direct
 publisher
 producer
+direct.dSYM/Contents/Info.plist
