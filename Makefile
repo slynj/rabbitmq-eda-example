@@ -1,25 +1,25 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -g
 
-INCLUDES = -I/opt/homebrew/include -I/usr/local/include
-LIBS = -L/opt/homebrew/lib -L/usr/local/lib -lamqpcpp -lssl -lcrypto -lboost_system -lboost_thread
+INCLUDES = -I/usr/local/include -I/opt/homebrew/include
+LIBS = -L/usr/local/lib -L/opt/homebrew/lib -lSimpleAmqpClient -lrabbitmq -lboost_system -lboost_thread
 
 TARGETS = producer direct
-SRCS = producer.cpp directConsumer.cpp
+SRCS = producer.cpp consumer.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(TARGETS) clean_obj
 
 producer: producer.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) producer.cpp -o producer $(LIBS) 
+	$(CXX) $(CXXFLAGS) $(INCLUDES) producer.cpp -o producer $(LIBS)
 
-direct: directConsumer.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) directConsumer.cpp -o direct $(LIBS) 
+direct: consumer.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) consumer.cpp -o direct $(LIBS)
 
 clean_obj:
 	rm -f $(OBJS)
 
 clean:
-	rm -f producer direct
+	rm -f producer consumer
 
 .PHONY: all clean clean_obj
