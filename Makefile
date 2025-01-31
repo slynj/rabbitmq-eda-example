@@ -4,23 +4,22 @@ CXXFLAGS = -std=c++17 -Wall -Wextra -O2
 INCLUDES = -I/opt/homebrew/include
 LIBS = -L/opt/homebrew/lib -lSimpleAmqpClient -lboost_system
 
-TARGET = eda
-SRCS = producer.cpp
+TARGETS = publisher direct
+SRCS = publisher.cpp direct.cpp
 OBJS = $(SRCS:.cpp=.o)
 
-all: $(TARGET) clean_obj
+all: $(TARGETS) clean_obj
 
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LIBS) $(INCLUDES)
+publisher: publisher.cpp
+	$(CXX) $(CXXFLAGS) publisher.cpp -o publisher $(LIBS) $(INCLUDES)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+direct: direct.cpp
+	$(CXX) $(CXXFLAGS) direct.cpp -o direct $(LIBS) $(INCLUDES)
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) $(TARGEST)
 	
 clean_obj:
 	rm -f $(OBJS)
 
 .PHONY: all clean
-
