@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -Wall -g
 
 INCLUDES = -I/usr/local/include -I/opt/homebrew/include
-LIBS = -L/usr/local/lib -L/opt/homebrew/lib -lSimpleAmqpClient -lrabbitmq -lboost_system -lboost_thread
+LIBS = -L/usr/local/lib -L/opt/homebrew/lib -lSimpleAmqpClient -lrabbitmq -lboost_system
 
 TARGETS = producer direct
 SRCS = producer.cpp consumer.cpp
