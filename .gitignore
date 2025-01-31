@@ -9,3 +9,5 @@ direct.dSYM/Contents/Info.plist
 direct.dSYM/Contents/Resources/Relocations/aarch64/direct.yml
 producer.dSYM/Contents/Info.plist
 producer.dSYM/Contents/Resources/Relocations/aarch64/producer.yml
+test
+/test.dSYM
